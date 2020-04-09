@@ -13,19 +13,22 @@ response_dic = r.json()
 #print(response_dic[0])
 #print(len(response_dic.keys()))
 #Procesando Resultados
-country_dic, deaths_dic = [], []
+country_dic, deaths_dic, colors = [], [], []
 for country in (response_dic.keys()):
     #print(country)
     country_dic.append(country)
     deaths_dic.append(response_dic[country][-1]['deaths'])
-    
+    if  int(response_dic[country][-1]['deaths']) > 1000:
+        colors.append('red')
+    else:
+        colors.append('blue')
 
 data = [{
     'type': 'bar',
     'x': country_dic,
     'y': deaths_dic,
     'marker': {
-        'color': 'rgb(60, 100, 150)',
+        'color': colors,
         'line': {'width':  1.5, 'color': 'rgb(25, 25, 25)'}
     },
     'opacity': 0.6,
